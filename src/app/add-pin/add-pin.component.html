@@ -1,0 +1,86 @@
+
+
+<!-- Add Pin Overlay -->
+<div class="modal fade" id="pinOverlay" tabindex="-1" role="dialog" aria-labelledby="pinOverlayLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pinOverlayLabel">Create a Pin</h5>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="pinForm" (ngSubmit)="savePin()">
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="title">Title* :</label>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" class="form-control" id="title" formControlName="title"
+                                placeholder="Title">
+                            <div *ngIf="pinForm.get('title')?.invalid && (pinForm.get('title')?.dirty || pinForm.get('title')?.touched)"
+                                class="text-danger">
+                                Title is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="email">Image* :</label>
+                        </div>
+                        <div class="form-field">
+                            <div class="file-upload" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                                <div class="drag-drop-text">Choose & Drag and Drop Your File Here</div>
+                                <input type="file" accept="image/*" (change)="onFileSelected($event)" id="fileInput" />
+                                <span *ngIf="pinForm.get('image')?.valid">{{selectedFileName}}</span>
+                            </div>
+                            <!-- <div *ngIf="pinForm.get('image')?.invalid && (pinForm.get('image')?.dirty || pinForm.get('image')?.touched)"
+                                class="text-danger">
+                                Please select image.
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="collaborator">collaboratory* :</label>
+                        </div>
+                        <div class="form-field">
+                            <ngx-select class="select-field" id="collaborators" [items]="collaboratorList"
+                                placeholder="Select Collaborators" formControlName="collaborators" 
+                                optionValueField="name" optionTextField="name" [multiple]="true"
+                               ></ngx-select>
+                            <div *ngIf="pinForm.get('collaborators')?.invalid && (pinForm.get('collaborators')?.dirty || pinForm.get('collaborators')?.touched)"
+                                class="text-danger">
+                                Collaborators is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="country">Privacy* :</label>
+                        </div>
+                        <div class="form-field">
+                            <div class="group-radio">
+                                <div class="radio-btn">
+                                    <input type="radio" id="publicOption" value="Public" formControlName="privacyOption" >
+                                    <label for="publicOption">Public</label>
+                                </div>
+                                <div class="radio-btn">
+                                    <input type="radio" id="privateOption" value="Private" formControlName="privacyOption">
+                                    <label for="privateOption">Private</label>
+                                </div>
+                            </div>
+
+                            <div *ngIf="pinForm.get('privacyOption')?.invalid" class="text-danger">
+                                Privacy is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" [disabled]="pinForm.invalid">Create Pin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

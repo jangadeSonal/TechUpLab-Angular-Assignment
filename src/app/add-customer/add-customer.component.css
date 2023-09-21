@@ -1,0 +1,31 @@
+.form-group{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+.form-label{
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.form-field{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.select-field{
+    width: 100%;
+    background-color: transparent;
+}
+
+.form-group button{
+    border-radius: 0px;
+    background-color: #ccc;
+    color: #000;
+    border-color: #ccc;
+}

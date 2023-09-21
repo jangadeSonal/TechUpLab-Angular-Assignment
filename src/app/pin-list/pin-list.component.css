@@ -1,0 +1,39 @@
+.image-container {
+
+    padding: 7px 10px;
+    left: 80px;
+    width: 200px;
+    max-width: 200px;
+    max-height: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+
+
+}
+
+table thead th,
+table tbody td {
+    text-align: center;
+}
+
+table tr {
+    vertical-align: middle;
+}
+
+#custom-btn button {
+    border-radius: 0px !important;
+    background-color: #ccc !important;
+    color: #000 !important;
+    border-color: #ccc !important;
+    margin: 5px;
+    width: 200px;
+}
