@@ -1,5 +1,11 @@
-.image-container {
+.img-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+
+.image-container {
     padding: 7px 10px;
     left: 80px;
     width: 200px;
@@ -16,17 +22,23 @@
     max-height: 100%;
     display: block;
     margin: 0 auto;
-
-
 }
 
-table thead th,
-table tbody td {
-    text-align: center;
+#custom-btn{
+    display: flex;
+    margin-bottom: 20px;
 }
 
-table tr {
-    vertical-align: middle;
+#custom-btn .head-title{
+    display: flex;
+    width: 50%;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#custom-btn .head-btn{
+    display: flex;width: 50%;flex-wrap: wrap;align-content: flex-end;flex-direction: column;
 }
 
 #custom-btn button {
@@ -37,3 +49,126 @@ table tr {
     margin: 5px;
     width: 200px;
 }
+
+.table-container{
+    overflow-x: auto;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* table-layout:fixed; */
+  }
+  
+  table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+  
+  table tr {
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+
+  table .noData-td{
+    text-align: center;
+  }
+
+
+
+  @media screen and (max-width: 750px) {
+    table {
+        table-layout:auto;
+      }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .table-container{
+        overflow-x: unset;
+    }
+
+    table {
+      border: 0;
+      table-layout:fixed;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+
+    .img-div{
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+    
+  }
+
+
+  @media screen and (max-width: 400px){
+    #custom-btn{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #custom-btn .head-title{
+        display: flex;
+        width: 100%;
+        align-content: center;
+        justify-content: center;
+    }
+    
+    #custom-btn .head-btn{
+        display: flex;
+        width: 100%;
+        align-content: center;
+        justify-content: center;
+    }
+
+    #custom-btn button{
+        width: 80%;
+    }
+  }

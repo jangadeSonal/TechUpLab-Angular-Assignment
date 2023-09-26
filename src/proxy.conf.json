@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://api.first.org/data/v1/countries",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

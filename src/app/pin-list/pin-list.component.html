@@ -2,44 +2,44 @@
 <app-add-customer></app-add-customer>
 <app-add-pin></app-add-pin>
 
-<div class="container-fluid" style="padding-top: 50px;">
-    <div id="custom-btn" style="display: flex;">
-        <div style="display: flex;width: 50%;align-content: flex-end;flex-wrap: wrap;">
+<div class="container-fluid" >
+    <div id="custom-btn">
+        <div class="head-title">
             <h2>List of pins</h2>
         </div>
-        <div  style="display: flex;width: 50%;flex-wrap: wrap;align-content: flex-end;flex-direction: column;">
+        <div class="head-btn">
             <button (click)="openAddCustomerOverlay()" class="btn btn-primary">+ Add Customer</button>
             <button (click)="openAddPinOverlay()" class="btn btn-primary">+ Add Pin</button>
         </div>
     </div>
     
-    <div >
+    <div class="table-container">
         <table class="table table-stripped table-bordered">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Image</th>
-                    <th>Collaborators</th>
-                    <th>Privacy</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Collaboratory</th>
+                    <th scope="col">Privacy</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of pinList">
-                    <td>{{item?.title}}</td>
-                    <td style=" display: flex;justify-content: center;align-items: center;">
+                    <td data-label="Title">{{item?.title}}</td>
+                    <td data-label="Image" class="img-div">
                         <div class="image-container">
                             <img *ngIf="item.image" [src]="item.image"  alt="Pin Image Preview" />
                         </div>
                     </td>
-                    <td>
+                    <td data-label="Collaboratory">
                         <div *ngFor="let cust of item.collaborators">
                             <span>{{cust}}</span>
                         </div>
                     </td>
-                    <td>{{item?.privacyOption}}</td>
+                    <td data-label="Privacy">{{item?.privacyOption}}</td>
                 </tr>
                 <tr *ngIf="pinList?.length === 0">
-                    <td colspan="4">No Data Found</td>
+                    <td colspan="4" class="noData-td">No Data Found</td>
                 </tr>
             </tbody>
         </table>

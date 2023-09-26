@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,9 @@ export class AddCustomerService {
 
   private syncCustomerData = new BehaviorSubject<any>([]);
   syncCustomerData$ = this.syncCustomerData.asObservable();
+
+  private countriesList = new BehaviorSubject<any>([]);
+  countriesList$ = this.countriesList.asObservable();
 
   private readonly localStorageKey = 'customerData';
   public customerForm: FormGroup;
@@ -20,7 +23,7 @@ export class AddCustomerService {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       region: ['', Validators.required],
-      country: ['']
+      country: ['', Validators.required]
     });
   }
 
@@ -30,14 +33,15 @@ export class AddCustomerService {
 
   resetAddCustomerOverlay(){
     this.customerForm.reset();
+    this.countriesList.next([]);
   }
 
-  getRegionList() {
+  getRegionList(): Observable<any> {
     return this.http.get<any>('https://api.first.org/data/v1/countries');
   }
 
-  getCountryByRegion(selectedRegion: any) {
-    return this.http.get(`https://api.first.org/data/v1/countries?region=${selectedRegion}`)
+  getCountryByRegion(selectedRegion: any): Observable<any> {
+    return this.http.get<any>(`https://api.first.org/data/v1/countries?region=${selectedRegion}`)
   }
 
   // Save customer data in localStorage

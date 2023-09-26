@@ -1,4 +1,4 @@
-import { Component,ElementRef, ViewChild  } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AddPinService } from './add-pin.service';
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
@@ -10,8 +10,6 @@ import { AddCustomerService } from '../add-customer/add-customer.service';
   styleUrls: ['./add-pin.component.css']
 })
 export class AddPinComponent {
-
-  // @ViewChild('fileInput') fileInput: ElementRef | any;
 
   pinForm: FormGroup; 
   collaboratorList: any = [];
@@ -34,9 +32,7 @@ export class AddPinComponent {
   }
 
   getCustomerList(){
-    this.collaboratorList = this.addCustomerService.getCustomerData();
-    console.log(this.collaboratorList);
-    
+    this.collaboratorList = this.addCustomerService.getCustomerData();  
   }
 
   getPinList(){
@@ -44,6 +40,13 @@ export class AddPinComponent {
   }
 
   savePin() {
+
+    for (const controlName in this.pinForm.controls) {
+      if (this.pinForm.controls.hasOwnProperty(controlName)) {
+        this.pinForm.controls[controlName].markAsTouched();
+      }
+    }
+
     // Check if the form is valid before saving
     if (this.pinForm.valid) {
       this.pinList.push(this.pinForm.value);

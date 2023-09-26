@@ -9,50 +9,73 @@ import { AddCustomerService } from './add-customer.service';
   styleUrls: ['./add-customer.component.css']
 })
 export class AddCustomerComponent {
- 
+
   regions: any = [];
-  countries: any = undefined;
+  countries: any = [];
   customers: any = [];
   customerForm: FormGroup;
 
-  constructor(private addCustomerService: AddCustomerService) { 
+  constructor(private addCustomerService: AddCustomerService) {
     this.customerForm = this.addCustomerService.getCustomerFormData();
   }
 
-  ngOnInit(){
-    this.getCountry();
+  ngOnInit() {
+
+    this.addCustomerService.countriesList$.subscribe((result: any) => {
+      if (result) {
+        this.countries = result;
+      }
+    });
+
+    this.getRegionList();
     this.getCustomerList();
   }
 
-  getCustomerList(){
+  getCustomerList() {
     this.customers = this.addCustomerService.getCustomerData();
   }
 
-  getCountry() {
+  getRegionList() {
     this.addCustomerService.getRegionList()
-      .subscribe((data: any) => {
-        const region = Object.values(data.data).map((country: any) => country.region);
+      .subscribe({
+        next: (data: any) => {
+          const region = Object.values(data.data).map((country: any) => country.region);
 
-        // Remove duplicate regions (optional)
-        const uniqueRegions = [...new Set(region)];
+          // Remove duplicate regions (optional)
+          const uniqueRegions = [...new Set(region)];
 
-        // Sort the regions alphabetically
-        this.regions = uniqueRegions.sort();
+          // Sort the regions alphabetically
+          this.regions = uniqueRegions.sort();
 
+        },
+        error: (error: any) => {
+          console.log("Error:", error);
+        }
       });
   }
 
-  onRegionChange(selectedRegion:any) {
+  onRegionChange(selectedRegion: any) {
     this.addCustomerService.getCountryByRegion(selectedRegion)
-      .subscribe((data: any) => {
-        this.countries = Object.values(data.data);
+      .subscribe({
+        next: (data: any) => {
+          this.countries = Object.values(data.data);
+        },
+        error: (error: any) => {
+          console.log("Error:", error);
+        }
       });
   }
 
   saveCustomer() {
+
+    for (const controlName in this.customerForm.controls) {
+      if (this.customerForm.controls.hasOwnProperty(controlName)) {
+        this.customerForm.controls[controlName].markAsTouched();
+      }
+    }
+
     // Check if the form is valid before saving
     if (this.customerForm.valid) {
-  
       this.customers.push(this.customerForm.value);
       this.addCustomerService.saveCustomerData(this.customers);
 

@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-field">
                             <ngx-select class="select-field" id="region" [items]="regions" placeholder="Select Region" formControlName="region"
-                                optionValueField="region" optionTextField="region"
+                                optionValueField="region" optionTextField="region" [showOptionNotFoundForEmptyItems]="true"
                                 (select)="onRegionChange($event)"></ngx-select>
                             <div *ngIf="customerForm.get('region')?.invalid && (customerForm.get('region')?.dirty || customerForm.get('region')?.touched)"
                                 class="text-danger">
@@ -50,19 +50,25 @@
                     </div>
                     <div class="form-group">
                         <div class="form-label">
-                            <label for="country">Country :</label>
+                            <label for="country">Country* :</label>
                         </div>
                         <div class="form-field">
                             <ngx-select class="select-field" id="country" [items]="countries" placeholder="Select Country" formControlName="country"
-                                optionValueField="country" optionTextField="country"></ngx-select>
+                                optionValueField="country" optionTextField="country" [showOptionNotFoundForEmptyItems]="true"></ngx-select>
+                                <div *ngIf="customerForm.get('country')?.invalid && (customerForm.get('country')?.dirty || customerForm.get('country')?.touched)"
+                                class="text-danger">
+                                Country is required.
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" [disabled]="customerForm.invalid">Create Customer</button>
+                        <button type="submit" class="btn btn-primary" >Create Customer</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
+
+
